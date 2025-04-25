@@ -18,3 +18,6 @@ Route::get('/dashboardfest', [DashboardFestController::class, 'index'])->name('d
 use App\Http\Controllers\CatalogueController;
 
 Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue');
+
+use App\Http\Controllers\ListController;
+Route::get('/listproduct', [ListController::class, 'index'])->name('list_product');
