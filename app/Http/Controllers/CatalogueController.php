@@ -53,7 +53,7 @@ class CatalogueController extends Controller
             $produk = array_filter($produk, fn($item) => $item['sewa_produk'] <= $maxHarga);
         }
 
-        return view('catalogue', [
+        return view('pages.catalogue', [
             'produk' => $produk,
             'kategoriDipilih' => $kategori,
             'maxDipilih' => $maxHarga

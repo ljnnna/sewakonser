@@ -21,3 +21,7 @@ Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue
 
 use App\Http\Controllers\ListController;
 Route::get('/listproduct', [ListController::class, 'index'])->name('list_product');
+
+Route::get('/home', function () {
+    return view('pages.home');
+});
