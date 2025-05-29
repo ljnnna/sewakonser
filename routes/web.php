@@ -25,3 +25,8 @@ Route::get('/listproduct', [ListController::class, 'index'])->name('list_product
 Route::get('/home', function () {
     return view('pages.home');
 });
+
+use App\Http\Controllers\ListProdukController;
+
+Route::get('/listproduk', [ListProdukController::class, 'show'] );
+Route::post('/listproduk', [ListProdukController::class, 'simpan'])->name('produk.simpan');
