@@ -11,4 +11,9 @@ class Produk extends Model
     protected $table = 'tblproduk';
     public $timestamps = false;
 
+    protected $fillable = [
+        'nama',
+        'deskripsi',
+        'harga'
+    ];    
 }

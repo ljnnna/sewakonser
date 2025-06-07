@@ -1,26 +1,58 @@
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <div class="mt-20 flex items-center justify-center">
-    <table>
-        <thead class="bg-green-100 rounded-lg shadow-lg border border-black">
-            <tr>
-                <th>No</th>
-                <th>Nama Produk</th>
-                <th>Deskripsi Produk</th>
-                <th>Harga Produk</th>
-            </tr>
-        </thead>
-        <tbody class="bg-gray-100 rounded-lg shadow-lg border border-black">
-            @foreach ($nama as $index => $item)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $item }}</td>
-                <td>{{ $desc[$index] }}</td>
-                <td>{{ $harga[$index] }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>    
+        <table class="w-full max-w-6xl border border-black rounded-lg overflow-hidden shadow-lg">
+            <thead class="bg-green-100 rounded-lg shadow-lg border border-black">
+                <tr>
+                    <th class="border border-black px-2 py-1 text-center font-medium w-8">No</th>
+                    <th class="border border-black px-2 py-1 text-center font-medium w-48">Nama Produk</th>
+                    <th class="border border-black px-2 py-1 text-center font-medium w-80">Deskripsi Produk</th>
+                    <th class="border border-black px-2 py-1 text-center font-medium w-32">Harga Produk</th>
+                    <th class="border border-black px-2 py-1 text-center font-medium w-16">Action</th>
+                </tr>
+            </thead>
+            <tbody class="bg-gray-100 rounded-lg shadow-lg border border-black">
+                @foreach ($nama as $index => $item)
+                <tr>
+                    <td class="border border-black px-2 py-1 text-center text-sm">{{ $index + 1 }}</td>
+                    <td class="border border-black px-2 py-1 text-center text-sm">{{ $item }}</td>
+                    <td class="border border-black px-2 py-1 text-center text-sm">{{ $desc[$index] }}</td>
+                    <td class="border border-black px-2 py-1 text-sm text-center">{{ $harga[$index] }}</td>
+                    <td class="border border-black text-sm">
+                        <div class="">
+                            <div class="flex gap-1 items-center justify-center" x-data="{ showModal: false, formData: { id: null, nama: '', deskripsi: '', harga: '' } }"> 
+                                <button
+                                    type="button"
+                                    class="p-2 text-center bg-blue-100 text-blue-600 hover:text-blue-800 hover:bg-blue-100 rounded transition-colors"
+                                    data-modal-target="crud-modal-{{ $id[$index] }}"
+                                    data-modal-toggle="crud-modal-{{ $id[$index] }}"
+                                    data-id="{{ $id[$index] }}"
+                                    data-nama="{{ $item }}"
+                                    data-deskripsi="{{ $desc[$index] }}"
+                                    data-harga="{{ $harga[$index] }}"
+                                    onclick="openEditModal(this)">
+                                    <i class="fas fa-solid fa-pen"></i>
+                                </button>
+                                @include('_update', ['produk' => $id[$index]])
+                    
+                                <form class="m-0" action="{{ route('produk.delete', $id[$index]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="" onclick="return confirm('Are you sure you want to delete {{ $item }}?')">
+                                        <i class="fas fa-trash-alt text-center p-2 bg-red-100 text-red-600 hover:text-red-800 hover:bg-red-100 rounded transition-colors"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
+            </tbody>
+        </table>    
+    </div>
 </div>
 
 
